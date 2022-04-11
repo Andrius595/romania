@@ -1,114 +1,137 @@
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Select from '@material-ui/core/Select';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useState } from "react";
+import {
+  Flex,
+  Heading,
+  Input,
+  Button,
+  InputGroup,
+  Stack,
+  InputLeftElement,
+  chakra,
+  Box,
+  Link,
+  Avatar,
+  FormControl,
+  InputRightElement,
+  Select
+} from "@chakra-ui/react";
+import { FaUserAlt, FaLock } from "react-icons/fa";
 
+const CFaUserAlt = chakra(FaUserAlt);
+const CFaLock = chakra(FaLock);
 
-const theme = createTheme();
+const App = () => {
+  const [showPassword1, setShowPassword1] = useState(false);
+  const [showPassword2, setShowPassword2] = useState(false);
 
-export default function SignUp() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+  const handleShowClick1 = () => setShowPassword1(!showPassword1);
+  const handleShowClick2 = () => setShowPassword2(!showPassword2);
 
   return (
-    <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            background: 'white',
-            alignItems: 'center',
-            padding: '20px',
-            height: '500px',
-            width: '400px'
-          }}
-        >
-          <Typography component="h1" variant="h5">
-            Registruotis
-          </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="email"
-                  label="E-Pašto adresas"
-                  name="email"
-                  autoComplete="email"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Kursas"                  
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
-                />
-                <Select></Select>
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Slaptažodis"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Pakartokite slaptažodį"
-                  type="password"
-                  id="repeat-password"
-                />
-              </Grid>              
-            </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+    <Flex
+      flexDirection="column"
+      width="100wh"
+      height="100vh"
+      backgroundColor="gray.200"
+      justifyContent="center"
+      alignItems="center"
+    >
+      <Stack
+        flexDir="column"
+        mb="2"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Avatar bg="teal.500" />
+        <Heading color="teal.400">Register</Heading>
+        <Box minW={{ base: "90%", md: "468px" }}>
+          <form>
+            <Stack
+              spacing={4}
+              p="1rem"
+              backgroundColor="whiteAlpha.900"
+              boxShadow="md"
             >
-              Registruotis
-            </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link href="#" variant="body2">
-                  Jau turite paskyra? Prisijunkite
-                </Link>
-              </Grid>
-            </Grid>
-          </Box>
+              <FormControl>
+                <InputGroup>
+                  <InputLeftElement
+                    pointerEvents="none"
+                    children={<CFaUserAlt color="gray.300" />}
+                  />
+                  <Input type="email" placeholder="el. paštas" />
+                </InputGroup>
+              </FormControl>
+              <FormControl>
+                <Select placeholder="Pasirinkite fakultetą">
+                  <option value="option1">aaaa</option>
+                  <option value="option2">bbbb</option>
+                  <option value="option3">cccc</option>
+                </Select>
+              </FormControl>
+              <FormControl>
+                <Select placeholder="Pasirinkite studijų programą">
+                  <option value="option1">aaaa</option>
+                  <option value="option2">bbbb</option>
+                  <option value="option3">cccc</option>
+                </Select>
+              </FormControl>
+              <FormControl>
+                <InputGroup>
+                  <InputLeftElement
+                    pointerEvents="none"
+                    color="gray.300"
+                    children={<CFaLock color="gray.300" />}
+                  />
+                  <Input
+                    type={showPassword1 ? "text" : "password"}
+                    placeholder="slaptažodis"
+                  />
+                  <InputRightElement width="4.5rem">
+                    <Button h="1.75rem" size="sm" onClick={handleShowClick1}>
+                      {showPassword1 ? "Rodyti" : "Slėpti"}
+                    </Button>
+                  </InputRightElement>
+                </InputGroup>
+              </FormControl>
+              <FormControl>
+                <InputGroup>
+                  <InputLeftElement
+                    pointerEvents="none"
+                    color="gray.300"
+                    children={<CFaLock color="gray.300" />}
+                  />
+                  <Input
+                    type={showPassword2 ? "text" : "password"}
+                    placeholder="pakartokite slaptažodį"
+                  />
+                  <InputRightElement width="4.5rem">
+                    <Button h="1.75rem" size="sm" onClick={handleShowClick2}>
+                      {showPassword2 ? "Rodyti" : "Slėpti"}
+                    </Button>
+                  </InputRightElement>
+                </InputGroup>
+              </FormControl>
+              <Button
+                borderRadius={0}
+                type="submit"
+                variant="solid"
+                colorScheme="teal"
+                width="full"
+              >
+                Register
+              </Button>
+            </Stack>
+          </form>
         </Box>
-      </Container>
-    </ThemeProvider>
+      </Stack>
+      <Box>
+        Turite paskyrą?{" "}
+        <Link color="teal.500" href="../">
+          Prisijungti
+        </Link>
+      </Box>
+    </Flex>
   );
-}
+};
+
+export default App;
