@@ -27,7 +27,9 @@ const Header = (props) => {
     >
       <Flex align="center" mr={5}>
         <Heading as="h1" size="lg" letterSpacing={"tighter"}>
-          Romania
+        <Link href="/index">
+                    <a>Romania</a>
+                </Link>
         </Heading>
       </Flex>
 
@@ -39,7 +41,7 @@ const Header = (props) => {
         mt={{ base: 6, md: 2 }}
       >
             <Text>
-                <Link href="#">
+                <Link href="/Modules">
                     <a>Modules</a>
                 </Link>
             </Text>
