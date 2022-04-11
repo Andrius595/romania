@@ -27,7 +27,9 @@ const Header = (props) => {
     >
       <Flex align="center" mr={5}>
         <Heading as="h1" size="lg" letterSpacing={"tighter"}>
-          Romania
+        <Link href="/index">
+                    <a>Romania</a>
+                </Link>
         </Heading>
       </Flex>
 
@@ -39,11 +41,7 @@ const Header = (props) => {
         mt={{ base: 6, md: 2 }}
       >
             <Text>
-<<<<<<< Updated upstream
                 <Link href="#">
-=======
-                <Link href="/modules">
->>>>>>> Stashed changes
                     <a>Modules</a>
                 </Link>
             </Text>
