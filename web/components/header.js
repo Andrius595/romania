@@ -41,7 +41,7 @@ const Header = (props) => {
         mt={{ base: 6, md: 2 }}
       >
             <Text>
-                <Link href="#">
+                <Link href="/modules">
                     <a>Modules</a>
                 </Link>
             </Text>
@@ -55,7 +55,9 @@ const Header = (props) => {
           variant="outline"
           _hover={{ bg: "teal.700", borderColor: "teal.700" }}
         >
-          Profile
+            <Link href="/profile">
+                <a>Profile</a>
+            </Link>
         </Button>
       </Box>
     </Flex>
