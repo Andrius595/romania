@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Faculty;
 use Illuminate\Http\Request;
 use App\Models\Module;
 use PhpParser\Node\Expr\AssignOp\Mod;
@@ -15,7 +16,7 @@ class ModuleController extends Controller
      */
     public function index()
     {
-        return Module::all();
+        return response()->json(Module::all());
     }
 
     /**
@@ -26,13 +27,20 @@ class ModuleController extends Controller
      */
     public function store(Request $request)
     {
+        $faculty_id = $request->get('faculty_id');
+        $faculty = Faculty::find($faculty_id);
+        $facultyModules = $faculty->modules->pluck('name');
+        $name = $request->get('name');
+        if(!in_array($name, $facultyModules)){
+            return response()->json(['data'], 201);
+        }
+
         $request->validate([
             'name' => 'required',
-            'faculty' => 'required',
             'lecturer' => 'required'
         ]);
 
-        return Module::create($request -> all());
+        return response()->json(Module::create($request -> all()), 201);
     }
 
     /**
@@ -43,13 +51,11 @@ class ModuleController extends Controller
      */
     public function show($id)
     {
-        $module = Module::where('id', $id)->first();
+        $module = Module::find($id);
         if(!$module){
-            return response([
-                'message' => 'Module does not exist'
-            ], 234);
+            return response()->json(['Module does not exist.'], 404);
         }
-        return Module::find($id);
+        return response()->json($module);
     }
 
     /**
@@ -63,7 +69,8 @@ class ModuleController extends Controller
     {
         $module = Module::find($id);
         $module->update($request->all());
-        return $module;
+        return response()->json($module);
+
     }
 
     /**
@@ -74,7 +81,7 @@ class ModuleController extends Controller
      */
     public function destroy($id)
     {
-        return Module::destroy($id);
+        return response()->json(Module::destroy($id));
     }/**
      * Remove the specified resource from storage.
      *
@@ -83,6 +90,6 @@ class ModuleController extends Controller
      */
     public function search($name)
     {
-        return Module::where('name', 'like', '%'.$name.'%')->get();
+        return response()->json(Module::where('name', 'like', '%'.$name.'%')->get());
     }
 }

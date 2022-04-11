@@ -13,4 +13,8 @@ class Module extends Model
         'faculty',
         'lecturer',
     ];
+    public function faculty()
+    {
+        return $this->belongsTo(Faculty::class,);
+    }
 }

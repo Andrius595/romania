@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('name');
-            $table->string('faculty');
-            $table->string('lecturers');
+            $table->foreign('faculty_id')->references('id')->on('faculties');
+            $table->string('lecturer');
         });
     }
 
