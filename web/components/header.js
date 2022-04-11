@@ -41,7 +41,7 @@ const Header = (props) => {
         mt={{ base: 6, md: 2 }}
       >
             <Text>
-                <Link href="/Modules">
+                <Link href="#">
                     <a>Modules</a>
                 </Link>
             </Text>
