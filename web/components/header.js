@@ -39,7 +39,11 @@ const Header = (props) => {
         mt={{ base: 6, md: 2 }}
       >
             <Text>
+<<<<<<< Updated upstream
                 <Link href="#">
+=======
+                <Link href="/modules">
+>>>>>>> Stashed changes
                     <a>Modules</a>
                 </Link>
             </Text>
