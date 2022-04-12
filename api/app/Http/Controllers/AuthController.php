@@ -25,7 +25,7 @@ class AuthController extends Controller
         $response = [
             'user' => $user,
         ];
-        return response($response, 201);
+        return response()->json($response);
     }
     public function login(Request $request){
          $fields = $request->validate([
@@ -50,13 +50,14 @@ class AuthController extends Controller
              'user' => $user,
              'token' => $token
          ];
-         return response($response, 201);
+        return response()->json($response);
     }
 
     public function logout(Request $request){
         auth()->user()->tokens()->delete();
-        return [
+        return response([
             'message' => 'Logged out'
-        ];
+        ], 360);
+        return response()->json(['Logged out']);
     }
 }
