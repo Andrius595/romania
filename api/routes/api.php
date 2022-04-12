@@ -16,9 +16,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 //Public routes
+// TODO remove this when our own password reset mail will be created.
+Route::get('reset-password/{token}', function(){})->name("password.reset");
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::get('forgot-password', [AuthController::class, 'forgotPassword'])->name('password.request');
+Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
+
 
 
 //Protected routes

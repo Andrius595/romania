@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ResetPasswordRequest;
+use App\Models\User;
+use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
-use App\Models\User;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -58,5 +63,38 @@ class AuthController extends Controller
         return [
             'message' => 'Logged out'
         ];
+    }
+
+    public function forgotPassword(Request $request): JsonResponse
+    {
+        $request->validate(['email' => 'required|email']);
+
+        $status = Password::sendResetLink($request->only('email'));
+
+        if ($status === Password::RESET_LINK_SENT) {
+            return response()->json(['success' => true]);
+        }
+
+        return response()->json(['errors' => ['password' => ['Something went wrong']]], Response::HTTP_BAD_REQUEST);
+    }
+
+    public function resetPassword(ResetPasswordRequest $request): JsonResponse
+    {
+        $status = Password::reset($request->only('email', 'token', 'password', 'password_confirmation'),
+            function ($user, $password) {
+                $user->forceFill([
+                    'password' => bcrypt($password)
+                ])->setRememberToken(Str::random(60));
+
+                $user->save();
+
+                event(new PasswordReset($user));
+            });
+
+        if ($status === Password::PASSWORD_RESET) {
+            return response()->json(['success' => true]);
+        }
+
+        return response()->json(['errors' => ['reset' => ['Unable to reset password']]], Response::HTTP_BAD_REQUEST);
     }
 }
