@@ -5,16 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Faculty extends Model
+class Comment extends Model
 {
     use HasFactory;
     protected $fillable = [
         'id',
-        'name',
-        'university',
-        'city',
+        'user',
+        'content',
+        'date',
     ];
-    public function faculties()
+    public function comments()
     {
         return $this->hasMany(Module::class);
     }

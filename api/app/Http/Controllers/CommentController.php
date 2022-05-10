@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Faculty;
+use App\Models\Comment;
 
 use Illuminate\Http\Request;
 
-class FacultyController extends Controller
+class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class FacultyController extends Controller
      */
     public function index()
     {
-        return response()->json(Faculty::all());
+        return response()->json(Comment::all());
     }
 
     /**
@@ -25,18 +25,18 @@ class FacultyController extends Controller
      */
     public function store(Request $request)
     {
-        $faculty = Faculty::find($request->get('id'));
+        $faculty = Comment::find($request->get('id'));
         if($faculty)
             return response()->json(['data'], 201);
 
         $request->validate([
-            'name' => 'required',
             'id' => 'required',
-            'university' => 'required',
-            'city' => 'required'
+            'content' => 'required',
+            'user' => 'required',
+            'date' => 'required'
         ]);
 
-        return response()->json(Faculty::create($request -> all()), 201);
+        return response()->json(Comment::create($request -> all()), 201);
     }
 
     /**
@@ -47,11 +47,11 @@ class FacultyController extends Controller
      */
     public function show($id)
     {
-        $faculty = Faculty::find($id);
-                if(!$faculty){
-                    return response()->json(['Faculty does not exist.'], 404);
+        $comment = Comment::find($id);
+                if(!$comment){
+                    return response()->json(['Comment does not exist.'], 404);
                 }
-        return response()->json($faculty);
+        return response()->json($comment);
     }
 
     /**
@@ -63,9 +63,9 @@ class FacultyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $faculty = Faculty::find($id);
-        $faculty->update($request->all());
-        return response()->json($faculty);
+        $comment = Comment::find($id);
+        $comment->update($request->all());
+        return response()->json($comment);
     }
 
     /**
