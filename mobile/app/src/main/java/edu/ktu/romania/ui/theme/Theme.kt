@@ -12,7 +12,7 @@ private val DarkColorPalette = darkColors(
 
 private val LightColorPalette = lightColors(
 
-    background = appBackgroundColor
+    background = mainBrightWhite
     /* Other default colors to override
     background = Color.White,
     surface = Color.White,

@@ -3,6 +3,7 @@ package edu.ktu.romania.ui.components
 import edu.ktu.romania.ui.theme.*
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
@@ -13,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.text.input.VisualTransformation
 
 /**
  * Composable to showcase input field
@@ -24,8 +26,10 @@ fun InputField(
     onValueChange: (String) -> Unit,
     value: String, modifier: Modifier,
     wasValidated: Boolean,
-    errorMessage: String
-) {
+    errorMessage: String,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    visualTransformation: VisualTransformation =  VisualTransformation.None,
+    ) {
     Column {
         TextField(
             value = value,
@@ -48,7 +52,9 @@ fun InputField(
                     contentDescription = ""
                 )
             },
-            shape = RectangleShape
+            shape = RectangleShape,
+            keyboardOptions = keyboardOptions,
+            visualTransformation = visualTransformation
         )
         if (!wasValidated) {
             Text(errorMessage, color = alertColor)
