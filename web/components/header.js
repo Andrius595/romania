@@ -1,5 +1,5 @@
 import React from "react";
-import Link from 'next/link'
+import Link from 'next/link';
 import {
   Box,
   Stack,
@@ -52,12 +52,13 @@ const Header = (props) => {
         mt={{ base: 6, md: 0 }}
       >
         <Button
+          href="/profile"
           variant="outline"
           _hover={{ bg: "teal.700", borderColor: "teal.700" }}
         >
-            <Link href="/profile">
-                <a>Profile</a>
-            </Link>
+          <Link href="/profile">
+            <a>Profile</a>
+        </Link>
         </Button>
       </Box>
     </Flex>

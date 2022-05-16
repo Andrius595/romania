@@ -95,7 +95,7 @@ const App = () => {
       </Stack>
       <Box>
         Neturite paskyros?{" "}
-        <Link color="teal.500" href="/Register">
+        <Link color="teal.500" href="/register">
           Užsiregistruoti
         </Link>
       </Box>
