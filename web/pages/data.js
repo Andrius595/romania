@@ -1,4 +1,5 @@
 import namor from 'namor'
+import { useRouter } from "next/router";
 
 const range = len => {
   const arr = []
@@ -14,7 +15,7 @@ const newPerson = () => {
     moduleCode: namor.generate({ words: 0, numbers: 5 }),
     moduleName: namor.generate({ words: 3, numbers: 0 }),
     reviews: Math.floor(Math.random() * 30),
-    link: Math.floor(Math.random() * 100)
+    link: "aa"
   }
 }
 
