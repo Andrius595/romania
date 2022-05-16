@@ -1,7 +1,8 @@
 import React from "react";
 import { useTable, useSortBy } from "react-table";
 import Header from "../../components/header";
-
+import { useRouter } from "next/router";
+import Link from "next/link";
 import {
   ChakraProvider,
   Table,
@@ -13,8 +14,34 @@ import {
   Flex
 } from "@chakra-ui/react";
 import { ChevronUpIcon, ChevronDownIcon } from "@chakra-ui/icons";
-
 import makeData from "../data";
+
+const posts = [
+  {
+    moduleCode: "P170B400",
+    moduleName: "Algoritmų sudarymas ir analizė",
+    reviews: 5,
+    link: <Link href={`/modules/${encodeURIComponent("P170B400")}`}><a>{"Details"}</a></Link>
+  },
+  {
+    moduleCode: "P175B015",
+    moduleName: "Programų sistemų inžinerija",
+    reviews: 2,
+    link: <Link href={`/modules/${encodeURIComponent("P175B015")}`}><a>{"Details"}</a></Link>
+  },
+  {
+    moduleCode: "P175B124",
+    moduleName: "Programavimo kalbų teorija",
+    reviews: 0,
+    link: <Link href={`/modules/${encodeURIComponent("P175B124")}`}><a>{"Details"}</a></Link>
+  },
+  {
+    moduleCode: "P175B304",
+    moduleName: "Operacinės sistemos",
+    reviews: 11,
+    link: <Link href={`/modules/${encodeURIComponent("P175B304")}`}><a>{"Details"}</a></Link>
+  }  
+];
 
 function CustomTable({ columns, data }) {
   const {
@@ -32,7 +59,6 @@ function CustomTable({ columns, data }) {
   );
 
   const firstPageRows = rows.slice(0, 20);
-
   return (
     <>
     <Header/>
@@ -82,18 +108,18 @@ function CustomTable({ columns, data }) {
   );
 }
 
-function App() {
+export default function App() {
   const columns = React.useMemo(
     () => [
       {
-        Header: "Module",
+        Header: "Modules",
         columns: [
           {
-            Header: "Module code",
+            Header: "code",
             accessor: "moduleCode"
           },
           {
-            Header: "Module Name",
+            Header: "Name",
             accessor: "moduleName"
           }
         ]
@@ -115,13 +141,10 @@ function App() {
     []
   );
 
-  const data = React.useMemo(() => makeData(2000), []);
-
   return (
     <ChakraProvider>
-      <CustomTable columns={columns} data={data} />
+      <CustomTable columns={columns} data={posts} />
     </ChakraProvider>
   );
 }
 
-export default App;

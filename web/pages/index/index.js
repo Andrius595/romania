@@ -1,15 +1,19 @@
+import Image from 'next/image'
 import React from 'react'
 import Header from '../../components/header'
-import {Flex, Box} from "@chakra-ui/react";
+import {Flex, Box, Center} from "@chakra-ui/react";
 
 function index() {
   return (
-      <Box>
-        <Header>
-        </Header>
-        <Flex alignItems={"center"} margin={"10"}>
-            Here will be displayed modules, that will be viewable
-        </Flex>
+    <Box>
+      <Header/>
+    <div className="pt-2" style={{  position: 'relative', width: '100vw', height: '66.66vw'}}>
+      <Image 
+        src="/web/styles/calendar.png"
+        layout="fill"
+        objectFit="cover"
+      />
+    </div>
     </Box>
   )
 }
